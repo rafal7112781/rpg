@@ -1,7 +1,7 @@
 import sys,time
 from sqlalchemy import create_engine,text
 import random
-import mysql.connector
+# import mysql
 from enemy import Enemy
 from player import Player
 
@@ -69,7 +69,8 @@ class Game:
             )
             sys.exit()
         if choice == '3':
-            self.DBload()
+            # self.DBload()
+            self.orm_sql()
 
     def start_game(self):
         self.start_game_msg()
@@ -154,8 +155,8 @@ class Game:
             self.load()
         elif choice_num == '9':
             self.DBsave()
-        elif choice_num == 'W':
-            self.DBload()
+        # elif choice_num == 'W':
+        #     self.DBload()
         else:
             print("Zły wybór!")
             self.game_menu()
@@ -269,43 +270,43 @@ class Game:
     def DBsave(self):
         self.player.DBsave()
         self.game_menu()
-    def DBload(self):
-        connection = mysql.connector.connect(user='root', password='1234', host='127.0.0.1',
-                                             database='rpggame', auth_plugin='mysql_native_password')
-        cursor = connection.cursor(buffered=True)
-
-        loadXp = "SELECT xp FROM players"
-        loadLvl = "SELECT lvl FROM players"
-        loadName = "SELECT name FROM players"
-        loadHp = "SELECT hp FROM players"
-        loadStrength = "SELECT power FROM players"
-        loadMana = "SELECT mana FROM players"
-        loadGold = "SELECT gold FROM players"
-
-        cursor.execute(loadXp)
-        self.experience = cursor.fetchone()
-        cursor.execute(loadLvl)
-        self.level = cursor.fetchone()
-        cursor.execute(loadName)
-        self.name = cursor.fetchone()
-        cursor.execute(loadHp)
-        self.max_life = cursor.fetchone()
-        cursor.execute(loadStrength)
-        self.strength = cursor.fetchone()
-        cursor.execute(loadMana)
-        self.mana = cursor.fetchone()
-        cursor.execute(loadGold)
-        self.gold = cursor.fetchone()
-
-
-        self.player = Player(strength=self.strength, life=self.max_life, mana=self.mana, name=self.name, gold=self.gold,
-                             level=self.level)
-        connection.commit()
-        connection.close()
-
-        self.game_menu()
+    # def DBload(self):
+    #     connection = mysql.connector.connect(user='root', password='1234', host='127.0.0.1',
+    #                                          database='rpggame', auth_plugin='mysql_native_password')
+    #     cursor = connection.cursor(buffered=True)
+    #
+    #     loadXp = "SELECT xp FROM players"
+    #     loadLvl = "SELECT lvl FROM players"
+    #     loadName = "SELECT name FROM players"
+    #     loadHp = "SELECT hp FROM players"
+    #     loadStrength = "SELECT power FROM players"
+    #     loadMana = "SELECT mana FROM players"
+    #     loadGold = "SELECT gold FROM players"
+    #
+    #     cursor.execute(loadXp)
+    #     self.experience = cursor.fetchone()
+    #     cursor.execute(loadLvl)
+    #     self.level = cursor.fetchone()
+    #     cursor.execute(loadName)
+    #     self.name = cursor.fetchone()
+    #     cursor.execute(loadHp)
+    #     self.max_life = cursor.fetchone()
+    #     cursor.execute(loadStrength)
+    #     self.strength = cursor.fetchone()
+    #     cursor.execute(loadMana)
+    #     self.mana = cursor.fetchone()
+    #     cursor.execute(loadGold)
+    #     self.gold = cursor.fetchone()
+    #
+    #
+    #     self.player = Player(strength=self.strength, life=self.max_life, mana=self.mana, name=self.name, gold=self.gold,
+    #                          level=self.level)
+    #     connection.commit()
+    #     connection.close()
+    #
+    #     self.game_menu()
     def orm_sql(self):
-        engine = create_engine('mysql+pymsql://root:1234@127.0.0.1/rpggame', echo=True) #//<username>:<password>@<host>/<dbname>
+        engine = create_engine('mysql+pymysql://root:root@localhost:3307/rpggame', echo=True) #//<username>:<password>@<host>/<dbname>
         with engine.connect() as conn:
 
             result = conn.execute(text("select 'hello world'"))

@@ -1,0 +1,14 @@
+version: "3.1"
+services:
+  db:
+    image: mysql:5.7-debian
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password
+    platform: linux/amd64
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: rpggame
+    ports:
+      - "3307:3306"
+    volumes:
+      - './db:/var/lib/mysql'

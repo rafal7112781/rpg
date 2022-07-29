@@ -1,6 +1,6 @@
 from entity import Entity
 from sqlalchemy import create_engine
-import mysql.connector
+# import mysql.connector
 
 
 class Player(Entity):
@@ -124,96 +124,96 @@ class Player(Entity):
         character_file.write("\n")
         character_file.write(gold)
         character_file.close()
-    def DBsave(self):
-        connection = mysql.connector.connect(user='root', password='1234', host='127.0.0.1',
-                                             database='rpggame', auth_plugin='mysql_native_password')
-        cursor = connection.cursor()
+    # def DBsave(self):
+    #     connection = mysql.connector.connect(user='root', password='1234', host='127.0.0.1',
+    #                                          database='rpggame', auth_plugin='mysql_native_password')
+    #     cursor = connection.cursor()
+    #
+    #     insertQuery = "INSERT INTO players(xp, lvl, name, hp, power, mana, gold) VALUES(%(xp)s, %(lvl)s, %(name)s, %(hp)s, %(power)s, %(mana)s, %(gold)s)"
+    #     insertData = {
+    #         'xp' : self.experience,
+    #         'lvl' : self.level,
+    #         'name' : self.name,
+    #         'hp' : self.max_life,
+    #         'power' : self.strength,
+    #         'mana' : self.mana,
+    #         'gold' : self.gold
+    #
+    #     }
+    #     deleteQuery = "DELETE FROM players"
+    #     cursor.execute(deleteQuery)
+    #     cursor.execute(insertQuery, insertData)
+    #
+    #     connection.commit()
+    #     connection.close()
 
-        insertQuery = "INSERT INTO players(xp, lvl, name, hp, power, mana, gold) VALUES(%(xp)s, %(lvl)s, %(name)s, %(hp)s, %(power)s, %(mana)s, %(gold)s)"
-        insertData = {
-            'xp' : self.experience,
-            'lvl' : self.level,
-            'name' : self.name,
-            'hp' : self.max_life,
-            'power' : self.strength,
-            'mana' : self.mana,
-            'gold' : self.gold
-
-        }
-        deleteQuery = "DELETE FROM players"
-        cursor.execute(deleteQuery)
-        cursor.execute(insertQuery, insertData)
-
-        connection.commit()
-        connection.close()
-
-    def shop(self):
-
-        connection = mysql.connector.connect(user='root', password='1234', host='127.0.0.1',
-                                             database='rpggame', auth_plugin='mysql_native_password')
-        cursor = connection.cursor(buffered=True)
-
-        loadAllItems = "SELECT iname, istrength, ilife, imana from items"
-
-        loadSword = "SELECT iname, istrength, ilife, imana FROM items WHERE iname = 'miecz'"
-        loadSwordName = "SELECT iname FROM items WHERE iname = 'miecz'"
-        loadSwordStrength = "SELECT istrength FROM items WHERE iname = 'miecz'"
-        loadSwordLife = "SELECT ilife FROM items WHERE iname = 'miecz'"
-        loadSwordMana = "SELECT imana FROM items WHERE iname = 'miecz'"
-
-        loadShield = "SELECT iname, istrength, ilife, imana FROM items WHERE iname = 'tarcza'"
-        loadShieldName = "SELECT iname FROM items WHERE iname = 'tarcza'"
-        loadShieldStrength = "SELECT istrength FROM items WHERE iname = 'tarcza'"
-        loadShieldLife = "SELECT ilife FROM items WHERE iname = 'tarcza'"
-        loadShieldMana = "SELECT imana FROM items WHERE iname = 'tarcza'"
-
-        loadHelm = "SELECT iname, istrength, ilife, imana FROM items WHERE iname = 'helm'"
-        loadHelmName = "SELECT iname FROM items WHERE iname = 'helm'"
-        loadHelmStrength = "SELECT istrength FROM items WHERE iname = 'helm'"
-        loadHelmLife = "SELECT ilife FROM items WHERE iname = 'helm'"
-        loadHelmMana = "SELECT imana FROM items WHERE iname = 'helm'"
-
-
-
-        print(f"Witaj, mam przedmioty pomagajace w walce (miecz, tarcza, helm)")
-        cursor.execute(loadAllItems)
-        print(cursor.fetchall())
-        showitem = input(f"Chcesz zobaczyc co daja (w kolejnosci sila, zycie, mana)? Jak tak to podaj nazwe przedmitu: ")
-        if showitem == 'miecz':
-            cursor.execute(loadSword)
-            myresult = cursor.fetchall()
-
-            for m in myresult:
-                print(m)
-                buy = input(f"Koszt takiego cacka to tylko 1 gold. Chcesz kupic?(tak/nie)")
-                if buy == 'tak':
-                   self.gold -= 1
-                   self.inventory.append(m)
-
-        elif showitem == 'tarcza':
-            cursor.execute(loadShield)
-            myresult = cursor.fetchall()
-
-            for t in myresult:
-                print(t)
-                buy = input(f"Koszt takiego cacka to tylko 1 gold. Chcesz kupic?(tak/nie)")
-                if buy == 'tak':
-                    self.gold -= 1
-                    self.inventory.append(t)
-
-        else:
-            cursor.execute(loadHelm)
-            myresult = cursor.fetchall()
-
-            for h in myresult:
-                print(h)
-                buy = input(f"Koszt takiego cacka to tylko 1 gold. Chcesz kupic?(tak/nie)")
-                if buy == 'tak':
-                    self.gold -= 1
-                    self.inventory.append(h)
-
-        connection.commit()
-        connection.close()
+    # def shop(self):
+    #
+    #     connection = mysql.connector.connect(user='root', password='1234', host='127.0.0.1',
+    #                                          database='rpggame', auth_plugin='mysql_native_password')
+    #     cursor = connection.cursor(buffered=True)
+    #
+    #     loadAllItems = "SELECT iname, istrength, ilife, imana from items"
+    #
+    #     loadSword = "SELECT iname, istrength, ilife, imana FROM items WHERE iname = 'miecz'"
+    #     loadSwordName = "SELECT iname FROM items WHERE iname = 'miecz'"
+    #     loadSwordStrength = "SELECT istrength FROM items WHERE iname = 'miecz'"
+    #     loadSwordLife = "SELECT ilife FROM items WHERE iname = 'miecz'"
+    #     loadSwordMana = "SELECT imana FROM items WHERE iname = 'miecz'"
+    #
+    #     loadShield = "SELECT iname, istrength, ilife, imana FROM items WHERE iname = 'tarcza'"
+    #     loadShieldName = "SELECT iname FROM items WHERE iname = 'tarcza'"
+    #     loadShieldStrength = "SELECT istrength FROM items WHERE iname = 'tarcza'"
+    #     loadShieldLife = "SELECT ilife FROM items WHERE iname = 'tarcza'"
+    #     loadShieldMana = "SELECT imana FROM items WHERE iname = 'tarcza'"
+    #
+    #     loadHelm = "SELECT iname, istrength, ilife, imana FROM items WHERE iname = 'helm'"
+    #     loadHelmName = "SELECT iname FROM items WHERE iname = 'helm'"
+    #     loadHelmStrength = "SELECT istrength FROM items WHERE iname = 'helm'"
+    #     loadHelmLife = "SELECT ilife FROM items WHERE iname = 'helm'"
+    #     loadHelmMana = "SELECT imana FROM items WHERE iname = 'helm'"
+    #
+    #
+    #
+    #     print(f"Witaj, mam przedmioty pomagajace w walce (miecz, tarcza, helm)")
+    #     cursor.execute(loadAllItems)
+    #     print(cursor.fetchall())
+    #     showitem = input(f"Chcesz zobaczyc co daja (w kolejnosci sila, zycie, mana)? Jak tak to podaj nazwe przedmitu: ")
+    #     if showitem == 'miecz':
+    #         cursor.execute(loadSword)
+    #         myresult = cursor.fetchall()
+    #
+    #         for m in myresult:
+    #             print(m)
+    #             buy = input(f"Koszt takiego cacka to tylko 1 gold. Chcesz kupic?(tak/nie)")
+    #             if buy == 'tak':
+    #                self.gold -= 1
+    #                self.inventory.append(m)
+    #
+    #     elif showitem == 'tarcza':
+    #         cursor.execute(loadShield)
+    #         myresult = cursor.fetchall()
+    #
+    #         for t in myresult:
+    #             print(t)
+    #             buy = input(f"Koszt takiego cacka to tylko 1 gold. Chcesz kupic?(tak/nie)")
+    #             if buy == 'tak':
+    #                 self.gold -= 1
+    #                 self.inventory.append(t)
+    #
+    #     else:
+    #         cursor.execute(loadHelm)
+    #         myresult = cursor.fetchall()
+    #
+    #         for h in myresult:
+    #             print(h)
+    #             buy = input(f"Koszt takiego cacka to tylko 1 gold. Chcesz kupic?(tak/nie)")
+    #             if buy == 'tak':
+    #                 self.gold -= 1
+    #                 self.inventory.append(h)
+    #
+    #     connection.commit()
+    #     connection.close()
 
 
 
